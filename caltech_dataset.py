@@ -21,6 +21,8 @@ class Caltech(VisionDataset):
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
 
+        x=pil_loader(root + '/' + split)
+        print(x)
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
         - If the RAM size allows it, it is faster to store all data in memory
@@ -35,7 +37,6 @@ class Caltech(VisionDataset):
         __getitem__ should access an element through its index
         Args:
             index (int): Index
-
         Returns:
             tuple: (sample, target) where target is class_index of the target class.
         '''
@@ -55,5 +56,5 @@ class Caltech(VisionDataset):
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ... # Provide a way to get the length (number of elements) of the dataset
+        length =  # Provide a way to get the length (number of elements) of the dataset
         return length
