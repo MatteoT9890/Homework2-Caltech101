@@ -20,14 +20,19 @@ class Caltech(VisionDataset):
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
-        print(self.root)
-        print(root)
+            
         splitted_dir=root.split('/')
         parent = splitted_dir[0]
         folder_data = splitted_dir[1]
-        x=pil_loader(parent + '/' + folder_data + '/' + self.split + '.txt')
-        print(x)
         
+        my_file = open(parent + '/' + split + '.txt', "r")
+        content_list = my_file.readlines()
+        
+        for img in content_list:
+            x = pil_loader(parent + '/' + folder_data + '7' + img)
+            print(x)
+            break
+
         #'''
         #- Here you should implement the logic for reading the splits files and accessing elements
         #- If the RAM size allows it, it is faster to store all data in memory
