@@ -15,13 +15,16 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    def __init__(self, root, split='train', transform=None, target_transform=None):
+    def __init__(self, data_dir, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
-           
-        x=pil_loader(root + '/' + split + '.txt')
+        
+        splitted_dir=data_dir.split('/')
+        root = splitted_dir[0]
+        folder_data = splitted_dir[1]
+        x=pil_loader(root + '/' + self.split + '.txt')
         print(x)
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
