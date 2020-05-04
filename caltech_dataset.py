@@ -20,7 +20,8 @@ class Caltech(VisionDataset):
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
-        
+        print(self.root)
+        print(root)
         splitted_dir=root.split('/')
         parent = splitted_dir[0]
         folder_data = splitted_dir[1]
