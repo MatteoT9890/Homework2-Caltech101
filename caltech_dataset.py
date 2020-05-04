@@ -27,6 +27,7 @@ class Caltech(VisionDataset):
         folder_data = splitted_dir[1]
         x=pil_loader(parent + '/' + folder_data + '/' + self.split + '.txt')
         print(x)
+        
         '''
         - Here you should implement the logic for reading the splits files and accessing elements
         - If the RAM size allows it, it is faster to store all data in memory
