@@ -15,7 +15,7 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    def __init__(self, root='boh', split='train', transform=None, target_transform=None):
+    def __init__(self, root, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root,transform=transform, target_transform=target_transform)
 
         self.split = split # This defines the split you are going to use
