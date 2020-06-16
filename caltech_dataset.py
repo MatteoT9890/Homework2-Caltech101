@@ -5,6 +5,7 @@ from PIL import Image
 import os
 import os.path
 import sys
+import pandas as pd
 
 
 def pil_loader(path):
@@ -20,6 +21,8 @@ class Caltech(VisionDataset):
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
+        self.images  = pd.DataFrame(columns = ['img'])
+        self.labelNames=[]
             
         splitted_dir=root.split('/')
         parent = splitted_dir[0]
@@ -29,9 +32,11 @@ class Caltech(VisionDataset):
         content_list = my_file.readlines()
         
         for img in content_list:
-            x = pil_loader(parent + '/' + folder_data + '7' + img)
-            print(x)
-            break
+            label = img.split('/')[0]
+            if label != 'BACKGROUND_Google':
+                x = pil_loader(parent + '/' + folder_data + '/' + img.split('\n')[0])
+                self.images.loc[len(self.images)]=[x]
+                self.labelNames.append(label)
 
         #'''
         #- Here you should implement the logic for reading the splits files and accessing elements
@@ -52,7 +57,9 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ... # Provide a way to access image and label via index
+        image =  self.images.iloc[index,0]
+        label = self.images.iloc[index,1]
+        # Provide a way to access image and label via index
                            # Image should be a PIL Image
                            # label can be int
 
@@ -62,10 +69,22 @@ class Caltech(VisionDataset):
 
         return image, label
 
+    def setIntLabel(self,labelList):
+        self.images['labelInt'] = labelList
+        self.images['labelName'] = self.labelNames
+        
     def __len__(self):
         '''
         The __len__ method returns the length of the dataset
         It is mandatory, as this is used by several other components
         '''
-        length = ... # Provide a way to get the length (number of elements) of the dataset
+        length = len(self.images) # Provide a way to get the length (number of elements) of the dataset
         return length
+    
+    def augmentation(self,transform):
+
+        augmented_img = pd.DataFrame(columns=['img','labelInt'])
+        for img in self.images['img']:
+            print(transform(img))
+    def checkType(self):
+        self.images['img'].apply(lambda x: print(type))
